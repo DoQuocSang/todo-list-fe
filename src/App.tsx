@@ -1,7 +1,7 @@
 import { useState } from "react";
-import TodoItem from "./components/TodoItem"
 import { dummyData } from "./data/todo"
 import AddTodoForm from "./components/AddTodoItemForm";
+import TodoList from "./components/TodoList";
 
 function App() {
   const [todos, setTodos] = useState(dummyData);
@@ -29,12 +29,11 @@ function App() {
       
       <AddTodoForm onAddTodo={handleAddTodo}/>
 
-      {todos.map((todo) => (
-        <TodoItem 
-          key={todo.id} 
-          todo={todo}
-          onCompleteChange={handleCompleteChange} />
-      ))}
+      <TodoList 
+        onCompleteChange={handleCompleteChange} 
+        todos={todos} 
+        onDelete={() => {}}
+      />
     </>
   )
 }
