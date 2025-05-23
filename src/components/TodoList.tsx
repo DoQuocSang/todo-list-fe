@@ -25,8 +25,15 @@ export default function TodoList({
           key={todo.id}
           todo={todo}
           onCompleteChange={onCompleteChange}
+          onDelete={onDelete}
         />
       ))}
+
+    {sortedTodos.length === 0 && (
+        <div className="text-center text-gray-500">
+            No todos available. Add some!
+        </div>
+    )}
     </>
   );
 }
