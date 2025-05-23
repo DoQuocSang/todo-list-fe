@@ -2,8 +2,8 @@
 
 A simple Todo List application using React + Vite. This application allows users to manage their tasks efficiently with features such as adding, editing, and deleting tasks.
 
-## live Demo
-sqdev-todo-list-fe.netlify.app
+## Live Demo
+Link: https://sqdev-todo-list-fe.netlify.app
 
 ## Features
 - Add new tasks to the list.
@@ -20,7 +20,7 @@ sqdev-todo-list-fe.netlify.app
 - **Build Tool**: Vite
 - **State Management**: React hooks
 - **Data Persistence**: Session Storage
-- **Deployment**: [Vercel](https://vercel.com/
+- **Deployment**: Netlify
 
 ## Getting Started
 
@@ -39,6 +39,7 @@ Make sure you have the following installed:
 ```bash
 # clone from repo
 git clone https://github.com/DoQuocSang/todo-list-fe
+```
 
 2. Install dependencies:
 ```bash
