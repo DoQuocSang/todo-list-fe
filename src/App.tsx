@@ -1,11 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { dummyData } from "./data/todo"
 import AddTodoForm from "./components/AddTodoItemForm";
 import TodoList from "./components/TodoList";
 import TodoSummary from "./components/TodoSummary";
+import type { Todo } from "./types/todo";
 
 function App() {
-  const [todos, setTodos] = useState(dummyData);
+  const [todos, setTodos] = useState(getTodosFromSessionStorage);
+
+  function getTodosFromSessionStorage() {
+    const todosFromSessionStorage: Todo[] =  JSON.parse(sessionStorage.getItem("todos") || "[]"); 
+    return todosFromSessionStorage.length > 0 ? todosFromSessionStorage : dummyData;
+  }
+
+  useEffect(() => {
+    sessionStorage.setItem("todos", JSON.stringify(todos));  
+  }, [todos]);
 
   function handleCompleteChange(id: number, completed: boolean) {
     setTodos((prevTodos) => prevTodos.map((todo) => 
