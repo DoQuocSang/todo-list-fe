@@ -5,7 +5,7 @@ import type { Tab } from "../models/tab";
 
 export default function useTodo() {
   const [todos, setTodos] = useState(getTodosFromSessionStorage);
-
+  
   function getTodosFromSessionStorage() {
     const todosFromSessionStorage: Todo[] = JSON.parse(
       sessionStorage.getItem("todos") || "[]"
@@ -76,7 +76,7 @@ export default function useTodo() {
     );
   }
 
-  function handleChangeFilterType(filterType: Tab): Todo[] {
+  function getFilteredTodos(filterType: Tab) {
     switch (filterType) {
       case "active":
         return todos.filter((todo) => !todo.completed);
@@ -96,6 +96,6 @@ export default function useTodo() {
     handleUpdateTodo,
     handleDelete,
     handleDeleteAllCompleted,
-    handleChangeFilterType,
+    getFilteredTodos,
   };
 }
