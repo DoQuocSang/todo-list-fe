@@ -14,7 +14,7 @@ interface TodoListProps {
   onDelete: (id: number) => void;
   onDeleteAllCompleted: () => void;
   counItemsLeft: () => number;
-  onChangeFilterType: (filterType: Tab) => Todo[];
+  getFilteredTodos: (filterType: Tab) => Todo[];
 }
 
 export default function TodoList({
@@ -26,12 +26,12 @@ export default function TodoList({
   onCompleteAllItems,
   onDelete,
   onDeleteAllCompleted,
-  onChangeFilterType,
+  getFilteredTodos,
 }: TodoListProps) {
-  const [filterTodos, setFilterTodos] = useState(todos);
+  const [filterType, setFilterType] = useState<Tab>("all");
 
   function handleChangeFilterType(tab: Tab) {
-    setFilterTodos(onChangeFilterType(tab));
+    setFilterType(tab);
   }
 
   return (
@@ -44,7 +44,7 @@ export default function TodoList({
 
         {todos.length > 0 && (
           <div className="w-full bg-white shadow-lg rounded-lg p-4 border-b-4 border-red-500">
-            {filterTodos.map((todo) => (
+            {getFilteredTodos(filterType).map((todo) => (
               <TodoItem
                 key={todo.id}
                 todo={todo}
@@ -54,7 +54,7 @@ export default function TodoList({
               />
             ))}
 
-            {filterTodos.length === 0 && (
+            {getFilteredTodos(filterType).length === 0 && (
               <p className="text-center text-slate-600 font-medium">
                 There is no item
               </p>
