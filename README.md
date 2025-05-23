@@ -4,6 +4,9 @@ A simple Todo List application using React + Vite. This application allows users
 
 ## Live Demo
 Link: https://sqdev-todo-list-fe.netlify.app
+<p align="center">
+  <img src="docs/todo-list-demo.png" />
+</p>
 
 ## Features
 - Add new tasks to the list.
