@@ -1,34 +1,44 @@
-import AddTodoForm from "./components/AddTodoItemForm";
-import TodoList from "./components/TodoList";
-import TodoSummary from "./components/TodoSummary";
+import Footer from "./components/footer/footer";
+import Header from "./components/header/header";
+import TodoList from "./components/todo/TodoList";
 import useTodo from "./hooks/useTodos";
 
 function App() {
-  const { 
+  const {
     todos,
+    counItemsLeft,
     handleAddTodo,
+    handleUpdateTodo,
     handleCompleteChange,
+    handleCompleteAllItems,
     handleDelete,
-    handleDeleteAllCompleted
+    handleDeleteAllCompleted,
+    handleChangeFilterType,
   } = useTodo();
 
   return (
-    <>
-       <h1 className="text-3xl font-bold text-red-500">
-        Todo List
-      </h1>
-      
-      <AddTodoForm onAddTodo={handleAddTodo}/>
+    <div className="bg-gray-50 h-full flex justify-center px-6 py-10">
+      <div className="max-w-screen-sm w-full">
+        {/* ===== Header ===== */}
+        <Header />
 
-      <TodoList 
-        onCompleteChange={handleCompleteChange} 
-        todos={todos} 
-        onDelete={handleDelete}
-      />
-
-      <TodoSummary todos={todos} onDeleteAllCompleted={handleDeleteAllCompleted}/>
-    </>
-  )
+        {/* ===== Todo pannel ===== */}
+        <TodoList
+          counItemsLeft={counItemsLeft}
+          onAddTodo={handleAddTodo}
+          onUpdateTodo={handleUpdateTodo}
+          onCompleteChange={handleCompleteChange}
+          onCompleteAllItems={handleCompleteAllItems}
+          todos={todos}
+          onDelete={handleDelete}
+          onDeleteAllCompleted={handleDeleteAllCompleted}
+          onChangeFilterType={handleChangeFilterType}
+        />
+        {/* ===== Footer ===== */}
+        <Footer />
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
