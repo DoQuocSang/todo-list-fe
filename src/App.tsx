@@ -1,34 +1,16 @@
-import { useState } from "react";
-import { dummyData } from "./data/todo"
 import AddTodoForm from "./components/AddTodoItemForm";
 import TodoList from "./components/TodoList";
 import TodoSummary from "./components/TodoSummary";
+import useTodo from "./hooks/useTodos";
 
 function App() {
-  const [todos, setTodos] = useState(dummyData);
-
-  function handleCompleteChange(id: number, completed: boolean) {
-    setTodos((prevTodos) => prevTodos.map((todo) => 
-        todo.id === id ?  { ...todo, completed } : todo
-    ));
-  }
-
-  function handleAddTodo(title: string) {
-    const newTodo = {
-      id: Date.now(),
-      title,
-      completed: false,
-    };
-    setTodos((prevTodos) => [...prevTodos, newTodo]);
-  }
-
-  function handleDelete(id: number) {
-    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
-  }
-
-  function handleDeleteAllCompleted() {
-    setTodos((prevTodos) => prevTodos.filter((todo) => !todo.completed));
-  }
+  const { 
+    todos,
+    handleAddTodo,
+    handleCompleteChange,
+    handleDelete,
+    handleDeleteAllCompleted
+  } = useTodo();
 
   return (
     <>
