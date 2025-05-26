@@ -1,19 +1,24 @@
+import { useTodoStore } from "../../store/todo.store";
 import type { Tab } from "../../models/tab";
-import type { Todo } from "../../models/todo";
 
-interface TodoSummaryProps {
-  todos: Todo[];
-  onDeleteAllCompleted: () => void;
-  counItemsLeft: () => number;
-  onChangeFilterType: (tab: Tab) => void;
-}
+export default function TodoSummary() {
+  const todos = useTodoStore((state) => state.todos);
+  const countActiveItems = useTodoStore((state) => state.countActiveItems);
+  const handleChangeFilterType = useTodoStore(
+    (state) => state.handleChangeFilterType
+  );
+  const handleDeleteAllCompleted = useTodoStore(
+    (state) => state.handleDeleteAllCompleted
+  );
 
-export default function TodoSummary({
-  todos,
-  counItemsLeft,
-  onDeleteAllCompleted,
-  onChangeFilterType,
-}: TodoSummaryProps) {
+  function onChangeFilterType(tab: Tab) {
+    handleChangeFilterType(tab);
+  }
+
+  function onDeleteAllCompleted() {
+    handleDeleteAllCompleted();
+  }
+
   return (
     <div
       className={
@@ -22,7 +27,7 @@ export default function TodoSummary({
     >
       <p className="text-sm flex justify-center items-center gap-2">
         <span className="text-red-500 font-bold text-xl">
-          {counItemsLeft()}
+          {countActiveItems()}
         </span>
         item left
       </p>
