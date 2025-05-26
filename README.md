@@ -21,7 +21,7 @@ Link: https://sqdev-todo-list-fe.netlify.app
 - **Language**: TypeScript, HTML, JavaScript
 - **Styling**: TailwindCSS
 - **Build Tool**: Vite
-- **State Management**: React hooks
+- **State Management**: React hooks, [Zustand](https://github.com/pmndrs/zustand)
 - **Data Persistence**: Session Storage
 - **Deployment**: Netlify
 

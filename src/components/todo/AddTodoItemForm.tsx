@@ -1,20 +1,21 @@
 import { useState } from "react";
+import { useTodoStore } from "../../store/todo.store";
 
-interface AddTodoFormProps {
-  onAddTodo: (title: string) => void;
-  onCompleteAllItems: () => void;
-}
-
-export default function AddTodoForm({
-  onAddTodo,
-  onCompleteAllItems,
-}: AddTodoFormProps) {
+export default function AddTodoForm() {
   const [input, setInput] = useState("");
+  const handleAddTodo = useTodoStore((state) => state.handleAddTodo);
+  const handleCompleteAllItems = useTodoStore(
+    (state) => state.handleCompleteAllItems
+  );
 
-  function handleAddTodo() {
+  function onAddTodo() {
     if (input.trim() === "") return;
-    onAddTodo(input);
+    handleAddTodo(input);
     setInput("");
+  }
+
+  function onCompleteAllItems() {
+    handleCompleteAllItems();
   }
 
   return (
@@ -42,7 +43,7 @@ export default function AddTodoForm({
         onChange={(e) => setInput(e.target.value)}
         onKeyUp={(e) => {
           if (e.key === "Enter") {
-            handleAddTodo();
+            onAddTodo();
           }
         }}
         className="px-4 py-4 w-full focus:outline-none focus:ring-2 rounded-lg focus:ring-red-500 border-none transition-all duration-150 ease-in"

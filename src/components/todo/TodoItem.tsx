@@ -1,22 +1,20 @@
-import type { Todo } from "../../models/todo";
 import { useTodoItem } from "../../hooks/useTodoItem";
-
+import type { Todo } from "../../models/todo";
 interface TodoItemProps {
   todo: Todo;
-  onCompleteChange: (id: number, completed: boolean) => void;
-  onUpdateTodo: (todo: Todo) => void;
-  onDelete: (id: number) => void;
 }
 
-export default function TodoItem({
-  todo,
-  onCompleteChange,
-  onUpdateTodo,
-  onDelete,
-}: TodoItemProps) {
-  const { editable, input, setInput, handleKeyUp, toggleEdit } = useTodoItem({
+export default function TodoItem({ todo }: TodoItemProps) {
+  const {
+    editable,
+    input,
+    setInput,
+    handleKeyUp,
+    toggleEdit,
+    onDeleteTodo,
+    onCompleteChange,
+  } = useTodoItem({
     todo,
-    onUpdateTodo,
   });
 
   return (
@@ -68,7 +66,7 @@ export default function TodoItem({
           </p>
 
           <button
-            onClick={() => onDelete(todo.id)}
+            onClick={() => onDeleteTodo(todo.id)}
             className="cursor-pointer absolute top-1/2 right-0 group-hover:right-4 -translate-y-1/2 text-red-500 opacity-0 group-hover:opacity-100 transition duration-150 ease-in-out"
           >
             <svg

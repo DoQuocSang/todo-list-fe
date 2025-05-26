@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 import type { Todo } from "../models/todo";
+import { useTodoStore } from "../store/todo.store";
 
 interface TodoItemProps {
   todo: Todo;
-  onUpdateTodo: (todo: Todo) => void;
 }
 
-export function useTodoItem({ todo, onUpdateTodo }: TodoItemProps) {
+export function useTodoItem({ todo }: TodoItemProps) {
   const [editable, setEditable] = useState(false);
   const [input, setInput] = useState("");
+
+  const handleUpdateTodo = useTodoStore((state) => state.handleUpdateTodo);
+  const handleDeleteTodo = useTodoStore((state) => state.handleDeleteTodo);
+  const handleCompleteChange = useTodoStore(
+    (state) => state.handleCompleteChange
+  );
 
   useEffect(() => {
     setInput(todo.title);
@@ -18,12 +24,16 @@ export function useTodoItem({ todo, onUpdateTodo }: TodoItemProps) {
     setEditable(!editable);
   }
 
-  function handleUpdateTodo() {
+  function onUpdateTodo() {
     const updatedTodo: Todo = {
       ...todo,
       title: input,
     };
-    onUpdateTodo(updatedTodo);
+    handleUpdateTodo(updatedTodo);
+  }
+
+  function onDeleteTodo(id: number) {
+    handleDeleteTodo(id);
   }
 
   function handleKeyUp(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -34,17 +44,24 @@ export function useTodoItem({ todo, onUpdateTodo }: TodoItemProps) {
 
       case "Enter":
         toggleEdit();
-        handleUpdateTodo();
+        onUpdateTodo();
         break;
       default:
         break;
     }
   }
+
+  function onCompleteChange(id: number, completed: boolean) {
+    handleCompleteChange(id, completed);
+  }
+
   return {
     editable,
     input,
     setInput,
     handleKeyUp,
     toggleEdit,
+    onDeleteTodo,
+    onCompleteChange,
   };
 }
